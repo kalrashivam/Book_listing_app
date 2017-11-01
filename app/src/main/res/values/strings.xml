@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Book_listing</string>
+    <string name="app_name">Books api</string>
+    <string name="text_data">Enter the type of book u want to search here with all the parameters</string>
+    <string name="edit_text">Type here</string>
+    <string name="button_value">Submit</string>
 </resources>
