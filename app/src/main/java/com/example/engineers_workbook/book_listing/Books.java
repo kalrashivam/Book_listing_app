@@ -13,7 +13,7 @@ public class Books {
     private String nurl;
 
 
-    books(String name, String price ,String url){
+        Books(String name, String price ,String url){
         ntitle=name;
         nprice=price;
         nurl=url;
