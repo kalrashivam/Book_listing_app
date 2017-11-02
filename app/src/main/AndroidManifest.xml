@@ -16,10 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListViewActivity">
-            <intent-filter>
-                <category android:name="andr"
-            </intent-filter>
+        <activity android:name=".ListViewActivity"
+                  android:label="@string/googlebooks"
+                  android:parentActivityName=".BooksList">
+
+                 <meta-data android:name="android.support.PARENT_ACTIVITY"
+                            android:value=".BooksList"/>
         </activity>
     </application>
 

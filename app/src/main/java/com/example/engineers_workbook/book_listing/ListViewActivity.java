@@ -6,12 +6,15 @@ import android.os.Bundle;
 
 public class ListViewActivity extends AppCompatActivity {
 
+    public String in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
 
-        Intent Incomingtext
+        Intent Incomingtext =getIntent();
+        in =Incomingtext.getStringExtra("Search_results");
+
     }
 }

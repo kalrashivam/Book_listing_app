@@ -20,14 +20,14 @@ public class BooksList extends AppCompatActivity {
 
         EditText et= (EditText) findViewById(R.id.reciever);
 
-        recieve=et.getText();
+        recieve=et.getText().toString();
 
         Button but = (Button) findViewById(R.id.submit_but);
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(BooksList.this, ListViewActivity.class);
-                myIntent.putExtra("Search results",recieve);
+                myIntent.putExtra("Search_results",recieve);
                 startActivity(myIntent);
 
             }
