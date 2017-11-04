@@ -1,6 +1,10 @@
 package com.example.engineers_workbook.book_listing;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,5 +104,24 @@ public class QueryUtils {
         return output.toString();
     }
 
-    private List<Books> 
+    private List<Books> extractFeaturefromjson(String jsonresponse){
+
+        if (TextUtils.isEmpty(jsonresponse)) {
+            return null;
+        }
+        List<Books> gbooks = new ArrayList<Books>();
+
+        try{
+            JSONObject js= new JSONObject(jsonresponse);
+            JSONArray ja= js.getJSONArray("items");
+            for(int i=0;i<js.length();i++){
+                 JSONObject item= ja.getJSONObject(i);
+                 JSONObject volumeinfo= item.getJSONObject("volumeInfo");
+                 String title = volumeinfo.getString("title");
+                 String authors =volumeinfo.getString("authors");
+
+            }
+        }catch()
+
+    }
 }
