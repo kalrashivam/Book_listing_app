@@ -38,10 +38,6 @@ public class Books {
         return nurl;
     }
 
-    public int getimage(){
-        return imageid;
-    }
-
     public String getNsubtitle(){
         return Nsubtitle;
     }
