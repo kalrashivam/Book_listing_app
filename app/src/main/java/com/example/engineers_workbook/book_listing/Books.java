@@ -8,30 +8,20 @@ public class Books {
 
     private String ntitle;
 
-    private String nprice;
-
     private String nurl;
-
-    private int imageid;
 
     private String Nsubtitle;
 
 
-        Books(String name, String price ,String url, int id, String sub){
+        Books(String name ,String url, String sub){
         ntitle=name;
-        nprice=price;
         nurl=url;
-        imageid=id;
         Nsubtitle=sub;
     }
 
 
     public String getNtitle(){
         return ntitle;
-    }
-
-    public String getNprice(){
-        return nprice;
     }
 
     public String getNurl(){

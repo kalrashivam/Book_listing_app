@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -29,17 +30,14 @@ public class QueryUtils {
     public static List<Books> fetchBooksdata(String simple){
         URL url =CreateUrl(simple);
 
-        String jsonresponse;
-        try{ jsonresponse = makeHttpRequest(url);
+        String jsonresponse = null;
+        jsonresponse = makeHttpRequest(url);
 
-        }catch(IOException e){
-            Log.e(LOG_TAG,"error",e);
 
-        }
 
-        List<Books> gbooks= extractFeaturefromjson(jsonresponse);
+        List<Books> cbooks= extractFeaturefromjson(jsonresponse);
 
-        return gbooks;
+        return cbooks;
 
     }
 
@@ -81,8 +79,13 @@ public class QueryUtils {
             if (Urlconnection != null) {
                 Urlconnection.disconnect();
             }
-            if (inputstream != null) {
-                inputstream.close();
+            try {
+                if (inputstream != null) {
+                    inputstream.close();
+                }
+            } catch(IOException e){
+                Log.e(LOG_TAG,"",e);
+
             }
         }
         return jsonresponse;
@@ -100,11 +103,10 @@ public class QueryUtils {
             }
 
         }
-
         return output.toString();
     }
 
-    private List<Books> extractFeaturefromjson(String jsonresponse){
+    private static List<Books> extractFeaturefromjson(String jsonresponse){
 
         if (TextUtils.isEmpty(jsonresponse)) {
             return null;
@@ -119,9 +121,20 @@ public class QueryUtils {
                  JSONObject volumeinfo= item.getJSONObject("volumeInfo");
                  String title = volumeinfo.getString("title");
                  String authors =volumeinfo.getString("authors");
+                 JSONObject image= item.getJSONObject("imageLinks");
+                 String imagetoget =image.getString("thumbnail");
+
+                gbooks.add(new Books(title,imagetoget,authors));
 
             }
-        }catch()
+        }catch(ArrayIndexOutOfBoundsException e){
+            Log.e(LOG_TAG,"",e);
+        }catch(JSONException e){
+            Log.e(LOG_TAG,"",e);
 
+        }
+
+      return gbooks;
     }
+
 }

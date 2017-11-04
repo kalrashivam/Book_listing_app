@@ -12,42 +12,43 @@ import java.util.List;
 public class ListViewActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = ListViewActivity.class.getName();
-    private String First_Url="https://www.googleapis.com/books/v1/volumes?q="
+    private String First_Url = "https://www.googleapis.com/books/v1/volumes?q=";
     public String in;
     public Booksadaptor badaptor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
 
-        Intent Incomingtext =getIntent();
-        in =Incomingtext.getStringExtra("Search_results");
+        Intent Incomingtext = getIntent();
+        in = Incomingtext.getStringExtra("Search_results");
 
-        ListView books= (ListView) findViewById(R.id.card);
+        ListView books = (ListView) findViewById(R.id.card);
 
-        badaptor = new Booksadaptor(this, new ArrayList<Books>())
+        badaptor = new Booksadaptor(this, new ArrayList<Books>());
 
         books.setAdapter(badaptor);
 
 
-        BooksAsyncTask task =new BooksAsyncTask();
+        BooksAsyncTask task = new BooksAsyncTask();
         task.execute(First_Url);
     }
 
-    private class BooksAsyncTask extends AsyncTask<String, void, List<Books>> {
+    private class BooksAsyncTask extends AsyncTask<String, Void, List<Books>> {
 
         @Override
         protected List<Books> doInBackground(String... urls) {
-            if (urls[0] == null || urls.length < 1) {
+            if (urls[0] == null || urls.length <= 1) {
                 return null;
             } else {
-                while(int i<urls.length){
-                    List<Books> result = QueryUtils.fetchBooksdata(urls[]);
+
+                    List<Books> result = QueryUtils.fetchBooksdata(urls[0]);
                     return result;
-                    i++;
+
                 }
-            }
+
         }
 
         @Override
@@ -55,8 +56,10 @@ public class ListViewActivity extends AppCompatActivity {
 
             badaptor.clear();
 
-            if(bookses != null || !bookses.isEmpty()){
+            if (bookses != null || !bookses.isEmpty()) {
                 badaptor.addAll(bookses);
+            }
         }
     }
+
 }
