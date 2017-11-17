@@ -18,16 +18,17 @@ public class BooksList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_list);
 
-        EditText et= (EditText) findViewById(R.id.reciever);
-
-        recieve=et.getText().toString();
-
         Button but = (Button) findViewById(R.id.submit_but);
         but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(BooksList.this, ListViewActivity.class);
-                myIntent.putExtra("Search_results",recieve);
+
+                EditText et= (EditText) findViewById(R.id.reciever);
+
+                recieve=et.getText().toString();
+
+                myIntent.putExtra("Search_results", recieve);
                 startActivity(myIntent);
 
             }

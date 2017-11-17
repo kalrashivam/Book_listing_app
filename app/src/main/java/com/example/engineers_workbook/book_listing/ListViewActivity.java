@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 public class ListViewActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = ListViewActivity.class.getName();
-    private String First_Url = "https://www.googleapis.com/books/v1/volumes?q=";
+    private String First_Url = "http://earthquake.usgs.gov/fdsnws/event/1/query";
     public String in;
     public Booksadaptor badaptor;
 
@@ -22,8 +23,8 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_view);
 
 
-        Intent Incomingtext = getIntent();
-        in = Incomingtext.getStringExtra("Search_results");
+        in = getIntent().getStringExtra("Search_results");
+        Log.e(LOG_TAG, in);
 
         ListView books = (ListView) findViewById(R.id.card);
 
@@ -56,7 +57,7 @@ public class ListViewActivity extends AppCompatActivity {
 
             badaptor.clear();
 
-            if (bookses != null || !bookses.isEmpty()) {
+           if (bookses != null && !bookses.isEmpty()) {
                 badaptor.addAll(bookses);
             }
         }
