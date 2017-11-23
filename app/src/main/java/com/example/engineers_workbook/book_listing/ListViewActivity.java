@@ -13,8 +13,9 @@ import java.util.List;
 public class ListViewActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = ListViewActivity.class.getName();
-    private String First_Url = "http://earthquake.usgs.gov/fdsnws/event/1/query";
+    private String Sample_Url = "https://www.googleapis.com/books/v1/volumes?q=";
     public String in;
+    public StringBuilder First_Url;
     public Booksadaptor badaptor;
 
     @Override
@@ -26,6 +27,15 @@ public class ListViewActivity extends AppCompatActivity {
         in = getIntent().getStringExtra("Search_results");
         Log.e(LOG_TAG, in);
 
+        String[] parts=in.split(" ");
+        First_Url = new StringBuilder();
+        First_Url.append(Sample_Url);
+        for(int j=0;j<parts.length;j++){
+            First_Url.append(parts[j]);
+        }
+
+
+
         ListView books = (ListView) findViewById(R.id.card);
 
         badaptor = new Booksadaptor(this, new ArrayList<Books>());
@@ -34,7 +44,7 @@ public class ListViewActivity extends AppCompatActivity {
 
 
         BooksAsyncTask task = new BooksAsyncTask();
-        task.execute(First_Url);
+        task.execute(First_Url.toString());
     }
 
     private class BooksAsyncTask extends AsyncTask<String, Void, List<Books>> {
@@ -57,9 +67,9 @@ public class ListViewActivity extends AppCompatActivity {
 
             badaptor.clear();
 
-           if (bookses != null && !bookses.isEmpty()) {
-                badaptor.addAll(bookses);
-            }
+           if (bookses != null || !bookses.isEmpty()) {
+               badaptor.addAll(bookses);
+           }
         }
     }
 

@@ -28,6 +28,7 @@ public class QueryUtils {
     }
 
     public static List<Books> fetchBooksdata(String simple){
+        Log.e(LOG_TAG,"chutiya");
         URL url =CreateUrl(simple);
 
         String jsonresponse = null;
@@ -117,12 +118,12 @@ public class QueryUtils {
         try{
             JSONObject js= new JSONObject(jsonresponse);
             JSONArray ja= js.getJSONArray("items");
-            for(int i=0;i<js.length();i++){
+            for(int i=0;i<5;i++){
                  JSONObject item= ja.getJSONObject(i);
                  JSONObject volumeinfo= item.getJSONObject("volumeInfo");
                  String title = volumeinfo.getString("title");
                  String authors =volumeinfo.getString("authors");
-                 JSONObject image= item.getJSONObject("imageLinks");
+                 JSONObject image= volumeinfo.getJSONObject("imageLinks");
                  String imagetoget =image.getString("thumbnail");
 
                 gbooks.add(new Books(title,imagetoget,authors));
